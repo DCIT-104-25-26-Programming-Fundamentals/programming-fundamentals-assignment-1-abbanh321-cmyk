@@ -35,7 +35,62 @@
 #   number, print an error message and stop.
 #
 
-# =============================================================================
-# YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
-# =============================================================================
+def calculate_sum(numbers):
+    total = 0
+    for value in numbers:
+        total += value
+    return total
+
+
+def calculate_average(numbers):
+    total = calculate_sum(numbers)
+    return total / len(numbers)
+
+
+def calculate_max(numbers):
+    maximum = numbers[0]
+    for value in numbers[1:]:
+        if value > maximum:
+            maximum = value
+    return maximum
+
+
+def calculate_min(numbers):
+    minimum = numbers[0]
+    for value in numbers[1:]:
+        if value < minimum:
+            minimum = value
+    return minimum
+
+
+def main():
+    try:
+        n = int(input("How many numbers? "))
+    except ValueError:
+        print("Error: N must be a positive integer.")
+        return
+
+    if n <= 0:
+        print("Error: N must be a positive integer.")
+        return
+
+    numbers = []
+    for i in range(1, n + 1):
+        try:
+            value = int(input(f"Enter number {i}: "))
+        except ValueError:
+            print("Please enter a valid integer.")
+            return
+        numbers.append(value)
+
+    print()
+    print("Results:")
+    print(f"Sum:     {calculate_sum(numbers)}")
+    print(f"Average: {calculate_average(numbers):.1f}")
+    print(f"Maximum: {calculate_max(numbers)}")
+    print(f"Minimum: {calculate_min(numbers)}")
+
+
+if __name__ == "__main__":
+    main()
 

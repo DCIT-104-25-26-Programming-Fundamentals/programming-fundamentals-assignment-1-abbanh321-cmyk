@@ -56,7 +56,123 @@
 #
 
 #
-# =============================================================================
-# YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
-# =============================================================================
+def read_matrix():
+    rows = int(input("Enter number of rows: "))
+    cols = int(input("Enter number of columns: "))
+
+    matrix = []
+    for row_index in range(rows):
+        row_values = input(f"Enter row {row_index + 1}: ").split()
+        row = [int(value) for value in row_values]
+        matrix.append(row)
+
+    return matrix
+
+
+def display_matrix(matrix):
+    if not matrix:
+        print("[]")
+        return
+
+    width = 0
+    for row in matrix:
+        for value in row:
+            width = max(width, len(str(value)))
+
+    for row in matrix:
+        line = " ".join(str(value).rjust(width) for value in row)
+        print(line)
+
+
+def transpose_matrix(matrix):
+    rows = len(matrix)
+    cols = len(matrix[0]) if rows > 0 else 0
+    return [[matrix[row][col] for row in range(rows)] for col in range(cols)]
+
+
+def add_matrices(matrix_a, matrix_b):
+    if len(matrix_a) != len(matrix_b) or len(matrix_a[0]) != len(matrix_b[0]):
+        return None
+
+    rows = len(matrix_a)
+    cols = len(matrix_a[0])
+    result = []
+    for row in range(rows):
+        new_row = []
+        for col in range(cols):
+            new_row.append(matrix_a[row][col] + matrix_b[row][col])
+        result.append(new_row)
+    return result
+
+
+def multiply_matrices(matrix_a, matrix_b):
+    if not matrix_a or not matrix_b or len(matrix_a[0]) != len(matrix_b):
+        return None
+
+    rows_a = len(matrix_a)
+    cols_b = len(matrix_b[0])
+    inner = len(matrix_b)
+
+    result = []
+    for row_a in range(rows_a):
+        new_row = []
+        for col_b in range(cols_b):
+            total = 0
+            for k in range(inner):
+                total += matrix_a[row_a][k] * matrix_b[k][col_b]
+            new_row.append(total)
+        result.append(new_row)
+
+    return result
+
+
+def main():
+    print("Matrix Operations")
+    print("1. Transpose a matrix")
+    print("2. Add two matrices")
+    print("3. Multiply two matrices")
+    print("4. Quit")
+
+    choice = input("Choose an operation (1-4): ")
+
+    if choice == "1":
+        matrix = read_matrix()
+        print("Original Matrix:")
+        display_matrix(matrix)
+        print("Transposed Matrix:")
+        display_matrix(transpose_matrix(matrix))
+    elif choice == "2":
+        matrix_a = read_matrix()
+        matrix_b = read_matrix()
+        result = add_matrices(matrix_a, matrix_b)
+        if result is None:
+            print("Error: Matrices must be the same size.")
+        else:
+            print("Matrix A:")
+            display_matrix(matrix_a)
+            print("Matrix B:")
+            display_matrix(matrix_b)
+            print("Result:")
+            display_matrix(result)
+    elif choice == "3":
+        matrix_a = read_matrix()
+        matrix_b = read_matrix()
+        result = multiply_matrices(matrix_a, matrix_b)
+        if result is None:
+            print("Error: Matrix dimensions are incompatible.")
+        else:
+            print("Matrix A:")
+            display_matrix(matrix_a)
+            print("Matrix B:")
+            display_matrix(matrix_b)
+            print("Result:")
+            display_matrix(result)
+    elif choice == "4":
+        print("Goodbye!")
+    else:
+        print("Error: Invalid choice.")
+
+
+if __name__ == "__main__":
+    main()
 

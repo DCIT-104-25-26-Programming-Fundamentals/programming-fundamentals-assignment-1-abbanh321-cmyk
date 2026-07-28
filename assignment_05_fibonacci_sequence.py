@@ -45,7 +45,60 @@
 #
 
 #
-# =============================================================================
-# YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
-# =============================================================================
+def generate_fibonacci_terms(n):
+    if n <= 0:
+        return []
+
+    terms = []
+    first, second = 0, 1
+
+    for _ in range(n):
+        terms.append(first)
+        first, second = second, first + second
+
+    return terms
+
+
+def is_fibonacci_number(number):
+    if number < 0:
+        return False
+
+    if number == 0 or number == 1:
+        return True
+
+    first, second = 0, 1
+    while second < number:
+        first, second = second, first + second
+
+    return second == number or first == number
+
+
+def main():
+    try:
+        n = int(input("How many terms? "))
+    except ValueError:
+        print("Error: N must be a positive integer.")
+        return
+
+    if n <= 0:
+        print("Error: N must be a positive integer.")
+        return
+
+    terms = generate_fibonacci_terms(n)
+    print("Fibonacci sequence:", " ".join(str(term) for term in terms))
+
+    try:
+        number = int(input("Enter a number to check: "))
+    except ValueError:
+        print("Please enter a valid integer.")
+        return
+
+    if is_fibonacci_number(number):
+        print(f"{number} is a Fibonacci number.")
+    else:
+        print(f"{number} is NOT a Fibonacci number.")
+
+
+if __name__ == "__main__":
+    main()
 
